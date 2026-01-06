@@ -1,0 +1,13 @@
+transformers
+langchain
+langchain-huggingface
+langchain-core
+torch --index-url https://download.pytorch.org/whl/cu130
+torchvision --index-url https://download.pytorch.org/whl/cu130
+langchain-openai
+langchain-ollama
+langchain-chroma
+pandas
+langgraph
+langchain-community
+accelerate
