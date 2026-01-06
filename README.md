@@ -50,15 +50,4 @@ python assignment-1/q1.py
   - Some packages (e.g., `torch`) in `requirements.txt` reference custom index URLs; follow printed installation output if additional steps are required.
   - If using an external LLM provider (OpenAI/Ollama), set provider credentials as environment variables per the provider docs.
 
-### **Notes about this submission**
-- **What to check:** Examples and experiments live in the `assignment-1/` and `assignment-2/` folders — open those scripts to see the step-by-step exercises and inline comments.
-- **Reproducibility:** Exact results may vary by model backend and environment (CUDA vs CPU). The `requirements.txt` lists the libraries used during development.
 
-### **Next steps (suggested enhancements)**
-- Add a small Jupyter notebook demo to visualize agent decision traces.
-- Add lightweight tests or example outputs for each `q*.py` script.
-- Add a short evaluation script to compare agent responses across backends.
-
----
-
-If you want, I can: install and verify dependencies, open and summarize each `q*.py` in detail, or add a demo notebook. Which would you like next?
