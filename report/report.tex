@@ -1,0 +1,271 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{parskip}
+
+\title{Agentic AI Learning Portfolio Report}
+\author{WIDS-2025 Submission}
+\date{February 1, 2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Overview}
+This report summarizes the learning outcomes and implementations in the WIDS-2025 workspace. The directory contains two assignment sets, weekly agentic AI exercises, and a final project that applies agentic concepts to a YouTube study assistant.
+
+\section{Workspace Structure Summary}
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{assignment-1/} and \textbf{assignment-2/}: Foundational and intermediate experiments with language models and simple agent workflows.
+    \item \textbf{W5/}: Google ADK-based agent implementations and tutorials (DataCamp Google ADK).
+    \item \textbf{final/youtube\_final\_project/}: End-to-end application using LLMs and tool pipelines for YouTube learning support.
+\end{itemize}
+
+\section{Assignments}
+\subsection{Assignment 1: Core LLM Capabilities}
+\textbf{Objective:} Explore core NLP tasks using \texttt{transformers} pipelines.
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Summarization (q1.py):} Uses \texttt{facebook/bart-large-cnn} to summarize a paragraph, highlighting model-driven condensation and length control.
+    \item \textbf{Text Generation (q2.py):} Uses \texttt{gpt2} for constrained generation, exploring creativity vs. length with \texttt{max\_new\_tokens}.
+    \item \textbf{Sentiment Analysis (q3.py):} Applies a default sentiment pipeline to multiple reviews, returning labels and confidence scores.
+\end{itemize}
+
+\textbf{Key Learning:} Understanding task-specific pipelines and how prompt length, max token count, and model choice impact outputs.
+
+\subsection{Assignment 2: Agentic Orchestration with LangGraph}
+\textbf{Objective:} Build multi-step LLM workflows and route requests using graph-based orchestration.
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Single-node chat graph (q1.py):} A minimal graph that appends user queries and invokes a local HuggingFace LLM through \texttt{LangGraph}.
+    \item \textbf{Two-stage QA (q2.py):} A question analyzer rewrites the query, followed by a dedicated answer generator to produce a final response.
+    \item \textbf{Router agent (q3.py):} Routes user questions to a \texttt{PYTHON} or \texttt{GENERAL} agent, then generates the final response based on the chosen path.
+\end{itemize}
+
+\textbf{Key Learning:} Modular agent design, separation of concerns (analysis vs. generation), and conditional branching based on intent.
+
+\section{LangChain Framework}
+\subsection{Overview}
+LangChain is a comprehensive framework for building applications powered by language models. It provides abstractions and components that simplify the development of LLM-powered applications through composable building blocks.
+
+\subsection{Core Concepts Used in This Project}
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{LLM Wrappers}: Unified interfaces for different model providers (HuggingFace, OpenAI, Ollama)
+    \begin{itemize}
+        \item \texttt{HuggingFacePipeline}: Wraps HuggingFace transformers pipelines for consistent LangChain integration
+        \item \texttt{langchain-openai}: OpenAI model integration
+        \item \texttt{langchain-ollama}: Local model deployment
+    \end{itemize}
+    \item \textbf{Chains}: Sequences of LLM calls with preprocessing and postprocessing logic
+    \item \textbf{Memory}: Conversation history and state management across agent interactions
+    \item \textbf{Vector Stores}: Integration with Chroma for retrieval-augmented generation (RAG)
+    \item \textbf{Community Extensions}: \texttt{langchain-community} provides additional integrations and utilities
+\end{itemize}
+
+\subsection{Application in Assignments}
+In Assignment 2, LangChain provides:
+\begin{itemize}[leftmargin=2em]
+    \item Unified model interfaces across different backends
+    \item Prompt templating via \texttt{apply\_chat\_template}
+    \item Stateful conversation management
+    \item Foundation for building agentic workflows
+\end{itemize}
+
+\subsection{Key Learning Outcomes}
+\begin{itemize}[leftmargin=2em]
+    \item Understanding LangChain's abstraction layers
+    \item Integrating multiple LLM providers through a common interface
+    \item Building modular, reusable components for LLM applications
+    \item Leveraging vector stores for context-aware responses
+\end{itemize}
+
+\section{LangGraph Framework}
+\subsection{Overview}
+LangGraph is a library for building stateful, multi-actor applications with LLMs. It extends LangChain with graph-based orchestration, enabling complex agent workflows with conditional logic, loops, and parallel execution.
+
+\subsection{Core Concepts}
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{StateGraph}: Defines the structure of the agent workflow as a directed graph
+    \item \textbf{Nodes}: Individual processing units (agents, functions) that transform state
+    \item \textbf{Edges}: Connections between nodes defining execution flow
+    \begin{itemize}
+        \item \textit{Direct edges}: Unconditional transitions
+        \item \textit{Conditional edges}: Dynamic routing based on state
+    \end{itemize}
+    \item \textbf{State}: TypedDict structures that maintain conversation context across the graph
+    \item \textbf{Entry/Finish Points}: Define where execution begins and ends
+\end{itemize}
+
+\subsection{Implementation Patterns in Assignment 2}
+\subsubsection{Single-Node Chat (q1.py)}
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Pattern}: Linear execution with state accumulation
+    \item \textbf{State}: \texttt{ChatState} with message list
+    \item \textbf{Flow}: Entry $\rightarrow$ LLM Node $\rightarrow$ Finish
+    \item \textbf{Purpose}: Demonstrates basic graph structure and state management
+\end{itemize}
+
+\subsubsection{Two-Stage QA Pipeline (q2.py)}
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Pattern}: Sequential processing with intermediate state
+    \item \textbf{State}: \texttt{QAState} with \texttt{messages}, \texttt{clarified\_question}, \texttt{final\_answer}
+    \item \textbf{Flow}: Entry $\rightarrow$ Question Analyzer $\rightarrow$ Answer Generator $\rightarrow$ Finish
+    \item \textbf{Purpose}: Shows separation of concerns (clarification vs. generation)
+\end{itemize}
+
+\subsubsection{Router Agent (q3.py)}
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Pattern}: Conditional routing based on intent classification
+    \item \textbf{State}: \texttt{RouterState} with \texttt{route}, \texttt{messages}, \texttt{final\_answer}
+    \item \textbf{Flow}: Entry $\rightarrow$ Router $\rightarrow$ [Python Agent | General Agent] $\rightarrow$ Finish
+    \item \textbf{Purpose}: Demonstrates dynamic graph execution and specialized agent delegation
+\end{itemize}
+
+\subsection{Advantages of Graph-Based Orchestration}
+\begin{enumerate}[leftmargin=2em]
+    \item \textbf{Modularity}: Each node is independently testable and reusable
+    \item \textbf{Flexibility}: Easy to add/remove nodes or modify routing logic
+    \item \textbf{Debuggability}: Clear visualization of execution paths
+    \item \textbf{State Management}: Explicit state transitions and transformations
+    \item \textbf{Scalability}: Support for complex workflows with cycles and parallel branches
+\end{enumerate}
+
+\subsection{Key Learning Outcomes}
+\begin{itemize}[leftmargin=2em]
+    \item Designing agent workflows as directed graphs
+    \item Managing state across multiple processing steps
+    \item Implementing conditional routing and intent-based delegation
+    \item Building maintainable, modular agent architectures
+    \item Understanding the relationship between LangChain's abstractions and LangGraph's orchestration
+\end{itemize}
+
+\section{Weekly Work: Google ADK (W5)}
+\textbf{Theme:} Building and understanding agent types using Google ADK and Gemini models.
+
+\subsection{DataCamp Google ADK Tutorial}
+The DataCamp module provides a structured walkthrough of ADK capabilities, emphasizing a code-first approach for agent definition and orchestration.
+
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Welcome Agent:} Demonstrates basic agent setup and session memory.
+    \item \textbf{Sequential Agent:} Shows chain-of-agents execution for decomposing tasks.
+    \item \textbf{Parallel Agent:} Highlights concurrent agent execution with independent outputs.
+    \item \textbf{Session Agent:} Introduces session memory patterns and the concept of session state services.
+    \item \textbf{Structured Outputs:} Shows how output schemas enforce structured responses.
+    \item \textbf{Tool Agent:} Demonstrates tool calling and external action execution.
+\end{itemize}
+
+\subsection{Custom Agent Exercises}
+In \textbf{W5/tool\_agent} and \textbf{W5/Welcome\_Agent}, custom agents are created using Google ADK. These scripts focus on:
+\begin{itemize}[leftmargin=2em]
+    \item Defining tool functions (e.g., a contact lookup tool).
+    \item Configuring model settings (temperature, token limits).
+    \item Creating simple agent instructions and behavior policies.
+\end{itemize}
+
+\textbf{Key Learning:} The ADK model of agents extends \texttt{BaseAgent}, with explicit tools, configurable behavior, and deployment-ready patterns.
+
+\section{Final Project: YouTube Study Assistant}
+\subsection{Project Goal}
+Build a study assistant that converts YouTube videos or playlists into structured learning materials: notes, flashcards, quizzes, and a question-answering interface.
+
+\subsection{Architecture}
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{UI:} Streamlit front-end for URL input, content generation, and RAG-style Q\&A.
+    \item \textbf{Transcript Extraction:} Uses \texttt{youtube-transcript-api} for transcripts and \texttt{yt-dlp} for playlist parsing and title retrieval.
+    \item \textbf{LLM Core:} Gemini model (\texttt{gemini-2.5-flash}) via Google Generative AI SDK for summarization, flashcards, and quiz generation.
+    \item \textbf{RAG-style QA:} Assembles context from multiple transcripts and answers questions strictly grounded in the extracted transcripts.
+\end{itemize}
+
+\subsection{Key Components}
+\begin{longtable}{p{0.28\textwidth}p{0.66\textwidth}}
+\toprule
+\textbf{Module} & \textbf{Purpose} \\
+\midrule
+\texttt{streamlit\_app.py} & Front-end UI: URL input, summary/flashcard/quiz generation, and chat-like Q\&A. \\
+\texttt{core/transcript.py} & Fetches transcript text from a video ID. \\
+\texttt{core/playlist.py} & Extracts video IDs from a playlist. \\
+\texttt{core/youtube\_utils.py} & URL parsing, playlist detection, and title retrieval. \\
+\texttt{core/summarizer.py} & Generates chapter-wise notes from transcripts. \\
+\texttt{core/flashcards.py} & Generates concise Q/A flashcards from transcripts. \\
+\texttt{core/quiz.py} & Generates multiple-choice questions. \\
+\texttt{core/rag.py} & Answers user questions using transcript-based context. \\
+\texttt{core/llm.py} & Loads API keys and dispatches LLM calls. \\
+\bottomrule
+\end{longtable}
+
+\subsection{Process Flow (Conceptual)}
+\begin{enumerate}[leftmargin=2em]
+    \item User provides a YouTube video or playlist URL.
+    \item System extracts video IDs and fetches transcripts.
+    \item User triggers:
+    \begin{itemize}
+        \item Chapter-wise notes,
+        \item Flashcards,
+        \item Multiple-choice quiz.
+    \end{itemize}
+    \item User asks questions across all processed videos; responses are grounded in transcript context.
+\end{enumerate}
+
+\subsection{Key Learning Outcomes}
+\begin{itemize}[leftmargin=2em]
+    \item Building an end-to-end agentic workflow with UI, tools, and LLM output.
+    \item Prompt engineering for structured study materials.
+    \item Multi-source context assembly for RAG-style Q\&A.
+    \item Managing session state within a front-end application.
+\end{itemize}
+
+\section{Tooling and Dependencies}
+\textbf{Primary Libraries:}
+\begin{itemize}[leftmargin=2em]
+    \item \textbf{Transformers, PyTorch, Accelerate}: local model execution and pipeline inference.
+    \item \textbf{LangChain Ecosystem}:
+    \begin{itemize}
+        \item \texttt{langchain}: Core framework for LLM application development
+        \item \texttt{langchain-core}: Foundation abstractions and interfaces
+        \item \texttt{langchain-huggingface}: HuggingFace model integration
+        \item \texttt{langchain-openai}: OpenAI model support
+        \item \texttt{langchain-ollama}: Local model deployment
+        \item \texttt{langchain-chroma}: Vector store integration for RAG
+        \item \texttt{langchain-community}: Community-contributed extensions
+    \end{itemize}
+    \item \textbf{LangGraph}: Graph-based agent orchestration with state management, conditional routing, and complex workflow support.
+    \item \textbf{Google Generative AI SDK}: Gemini model access for generation tasks.
+    \item \textbf{Streamlit}: interactive UI for the final application.
+    \item \textbf{YouTube Transcript API, yt-dlp}: transcript extraction and playlist processing.
+\end{itemize}
+
+\section{Summary of Learning}
+The repository demonstrates a progression from foundational LLM tasks to multi-step agent orchestration, and finally to a full application that integrates tools, retrieval context, and structured outputs. Core competencies developed include:
+\begin{itemize}[leftmargin=2em]
+    \item Prompt design for summarization, generation, and classification.
+    \item Agentic workflow design with routing, sequencing, and state management using LangGraph.
+    \item LangChain framework proficiency: model abstraction, prompt templating, and component composition.
+    \item Graph-based orchestration: building stateful multi-agent systems with conditional logic.
+    \item Tool integration for real-world data retrieval (YouTube transcripts, playlists).
+    \item Comparing frameworks: understanding trade-offs between LangChain/LangGraph and Google ADK.
+    \item Building a user-facing application that packages agentic AI capabilities into a usable learning tool.
+\end{itemize}
+
+\subsection{Framework Comparison: LangChain/LangGraph vs. Google ADK}
+\begin{longtable}{p{0.2\textwidth}p{0.35\textwidth}p{0.35\textwidth}}
+\toprule
+\textbf{Aspect} & \textbf{LangChain/LangGraph} & \textbf{Google ADK} \\
+\midrule
+\textbf{Philosophy} & Composable chains and graph-based workflows & Code-first agent definitions with Google Cloud integration \\
+\textbf{State} & TypedDict with explicit state management & Session services (in-memory, database, Vertex AI) \\
+\textbf{Routing} & Conditional edges in graphs & Conditional agent selection and tool calling \\
+\textbf{Tools} & Extensive ecosystem of pre-built tools & Google Cloud native tools + custom function tools \\
+\textbf{Deployment} & Framework-agnostic (requires separate deployment setup) & Built-in Google Cloud deployment support \\
+\textbf{Learning Curve} & Steeper (many abstractions) & Gentler (straightforward Python classes) \\
+\textbf{Use Case} & Flexible, multi-provider applications & Google Cloud-centric production systems \\
+\bottomrule
+\end{longtable}
+
+\end{document}

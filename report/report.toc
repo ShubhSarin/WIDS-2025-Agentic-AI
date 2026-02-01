@@ -1,0 +1,31 @@
+\contentsline {section}{\numberline {1}Overview}{3}{section.1}%
+\contentsline {section}{\numberline {2}Workspace Structure Summary}{3}{section.2}%
+\contentsline {section}{\numberline {3}Assignments}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Assignment 1: Core LLM Capabilities}{3}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Assignment 2: Agentic Orchestration with LangGraph}{3}{subsection.3.2}%
+\contentsline {section}{\numberline {4}LangChain Framework}{4}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Overview}{4}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Core Concepts Used in This Project}{4}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Application in Assignments}{4}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Key Learning Outcomes}{4}{subsection.4.4}%
+\contentsline {section}{\numberline {5}LangGraph Framework}{5}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Overview}{5}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Core Concepts}{5}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Implementation Patterns in Assignment 2}{5}{subsection.5.3}%
+\contentsline {subsubsection}{\numberline {5.3.1}Single-Node Chat (q1.py)}{5}{subsubsection.5.3.1}%
+\contentsline {subsubsection}{\numberline {5.3.2}Two-Stage QA Pipeline (q2.py)}{5}{subsubsection.5.3.2}%
+\contentsline {subsubsection}{\numberline {5.3.3}Router Agent (q3.py)}{5}{subsubsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.4}Advantages of Graph-Based Orchestration}{6}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Key Learning Outcomes}{6}{subsection.5.5}%
+\contentsline {section}{\numberline {6}Weekly Work: Google ADK (W5)}{6}{section.6}%
+\contentsline {subsection}{\numberline {6.1}DataCamp Google ADK Tutorial}{6}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Custom Agent Exercises}{6}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Final Project: YouTube Study Assistant}{7}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Project Goal}{7}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Architecture}{7}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Key Components}{7}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Process Flow (Conceptual)}{7}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Key Learning Outcomes}{8}{subsection.7.5}%
+\contentsline {section}{\numberline {8}Tooling and Dependencies}{8}{section.8}%
+\contentsline {section}{\numberline {9}Summary of Learning}{8}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Framework Comparison: LangChain/LangGraph vs. Google ADK}{9}{subsection.9.1}%
